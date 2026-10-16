@@ -9,12 +9,12 @@
 .profile{width:130px;height:130px;border-radius:50%;border:4px solid #fff;object-fit:cover;background:#ccc}
 .top-bar{position:absolute;top:12px;right:10px;display:flex;gap:6px}
 .top-btn{background:#fff;color:#0a1931;border:none;padding:7px 14px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:13px}
-.services{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;max-width:600px;margin:auto}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;max-width:700px;margin:auto}
 .card{background:#fff;border-radius:12px;padding:20px 10px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1);cursor:pointer}
-.card b{display:block;margin-top:8px;color:#0a1931;font-size:13px}
+.card b{display:block;margin-top:8px;color:#0a1931;font-size:12px}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center;padding:12px}
 .modal.active{display:flex}
-.modal-box{background:#fff;width:100%;max-width:400px;border-radius:12px;padding:18px;max-height:90vh;overflow-y:auto}
+.modal-box{background:#fff;width:100%;max-width:400px;border-radius:12px;padding:18px;max-height:92vh;overflow-y:auto}
 .modal-box label{font-weight:bold;display:block;margin:9px 0 3px;font-size:13px}
 .modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:7px}
 .btn{width:100%;padding:11px;background:#25D366;color:#fff;border:none;border-radius:7px;font-weight:bold;margin-top:10px;cursor:pointer}
@@ -31,7 +31,7 @@
 <button class="top-btn" id="signupBtn" onclick="openAuth('signup')">Signup</button>
 <button class="top-btn" id="logoutBtn" style="display:none" onclick="logout()">Logout</button>
 </div>
-<img class="profile" src="Photo.jpg" onerror="this.onerror=null; this.src='photo.jpg';">
+<img class="profile" src="Photo.jpg" onerror="this.src='photo.jpg'">
 <h2 id="welcomeText" style="margin-top:10px">Ali Haider Online Services</h2>
 <p style="font-size:12px">03179964898 | haideraa040@gmail.com</p>
 <a href="https://whatsapp.com/channel/0029Vb7FOtgEgGfOnnwGED0r" style="color:#25D366;font-size:12px">📢 WhatsApp Channel Join</a>
@@ -45,9 +45,20 @@
 <label>Full Name</label><input id="aName">
 <label>WhatsApp Number</label><input id="aNumber" placeholder="03xx-xxxxxxx">
 <label>Password</label><input id="aPass" type="password">
+<p id="forgotLink" style="font-size:12px;text-align:right;margin-top:6px;display:none"><span onclick="openForgot()" style="color:#185adb;cursor:pointer;text-decoration:underline">Forget Password?</span></p>
 <button class="btn btn-blue" id="authAction" onclick="handleAuth()">Signup</button>
 <button class="btn btn-close" onclick="closeAll()">Close</button>
 <p style="text-align:center;font-size:12px;margin-top:8px" id="switchAuth"></p>
+</div>
+</div>
+
+<div class="modal" id="forgotModal">
+<div class="modal-box">
+<h3 style="text-align:center;color:#0a1931">Forget Password</h3>
+<label>WhatsApp Number</label><input id="fNumber" placeholder="Jis number se signup kiya tha">
+<label>New Password</label><input id="fPass" type="password" placeholder="Naya password likhen">
+<button class="btn btn-blue" onclick="handleForgot()">Reset Password</button>
+<button class="btn btn-close" onclick="closeAll()">Close</button>
 </div>
 </div>
 
@@ -57,39 +68,101 @@
 <label>Service</label><input id="serviceName" readonly style="background:#eee">
 <label>Name *</label><input id="oName">
 <label>Province *</label>
-<select id="oProvince"><option value="">Select</option><option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad</option><option>Gilgit Baltistan</option><option>Azad Kashmir</option></select>
+<select id="oProvince"><option value="">Select Province</option><option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad</option><option>Gilgit Baltistan</option><option>Azad Kashmir</option></select>
 <label>District *</label><input id="oDistrict" placeholder="Peshawar, Lahore...">
 <label>Tehsil *</label><input id="oTehsil" placeholder="Tehsil name">
 <label>WhatsApp *</label><input id="oWhatsapp" placeholder="03xx-xxxxxxx">
 <label>Details</label><textarea id="oDetails" rows="2"></textarea>
-<label>Upload Documents / Pictures</label>
+<label>Upload Documents</label>
 <div class="upload-box"><input type="file" id="fileUpload" multiple accept="image/*,.pdf"><p style="font-size:10px">JPG, PNG, PDF</p></div>
 <button class="btn" onclick="sendWhatsApp()">📲 WhatsApp Par Bhejen</button>
 <button class="btn btn-close" onclick="closeAll()">Close</button>
 </div>
 </div>
 
-<div class="footer">© 2026 AHOS - All Pakistan Service</div>
+<div class="footer">© 2026 AHOS</div>
 
 <script>
 let currentAuth='signup';
-let list=["CV / Resume Making","Graphic Designing","Photo Editing","T-Shirt Design","Mug Design","Certificate Design","Invitation Cards","Poster Design","ID Card Design","Assignment Typing","Application Writing","Document Formatting","Background Removal","Thumbnail Design","Presentation","Logo Design","More Services"];
+// YAHI AAPKI PURANI SERVICES HAIN
+let list=[
+"CV / Resume Making",
+"Graphic Designing",
+"Photo Editing",
+"T-Shirt Design",
+"Mug Printing Design",
+"Certificate Design",
+"Invitation Cards",
+"Poster Design",
+"ID Card Design",
+"Assignment / Typing",
+"Application Writing",
+"Document Formatting",
+"Background Removal",
+"Thumbnail Design",
+"Presentation Design",
+"Logo Design",
+"And More Services"
+];
 let cont=document.getElementById('services');
 list.forEach(function(s){
 let d=document.createElement('div');d.className='card';d.innerHTML='<div style="font-size:30px">📄</div><b>'+s+'</b>';d.onclick=function(){openOrder(s);};cont.appendChild(d);
 });
-function openAuth(t){currentAuth=t;document.getElementById('authTitle').innerText=t=='login'?'Login':'Signup';document.getElementById('authAction').innerText=t=='login'?'Login':'Signup';document.getElementById('aName').style.display=t=='login'?'none':'block';document.getElementById('aName').previousElementSibling.style.display=t=='login'?'none':'block';document.getElementById('switchAuth').innerHTML=t=='login'? 'No account? <b onclick="openAuth(\'signup\')" style="color:#185adb">Signup</b>' : 'Have account? <b onclick="openAuth(\'login\')" style="color:#185adb">Login</b>';document.getElementById('authModal').classList.add('active');}
+function openAuth(t){
+currentAuth=t;
+document.getElementById('authTitle').innerText=t=='login'?'Login':'Signup';
+document.getElementById('authAction').innerText=t=='login'?'Login':'Signup';
+document.getElementById('aName').style.display=t=='login'?'none':'block';
+document.getElementById('aName').previousElementSibling.style.display=t=='login'?'none':'block';
+document.getElementById('forgotLink').style.display=t=='login'?'block':'none';
+document.getElementById('switchAuth').innerHTML=t=='login'? 'No account? <b onclick="openAuth(\'signup\')" style="color:#185adb">Signup</b>' : 'Have account? <b onclick="openAuth(\'login\')" style="color:#185adb">Login</b>';
+document.getElementById('authModal').classList.add('active');
+}
+function openForgot(){closeAll();document.getElementById('forgotModal').classList.add('active');}
 function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));}
 function handleAuth(){
 let name=document.getElementById('aName').value.trim(),num=document.getElementById('aNumber').value.trim(),pass=document.getElementById('aPass').value.trim();
 if(!num||!pass){alert('Number & Password likhen');return;}
 let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');
-if(currentAuth=='signup'){if(!name){alert('Name likhen');return;}if(users[num]){alert('Account hai, login karen');return;}users[num]={name:name,pass:pass};localStorage.setItem('ahos_users',JSON.stringify(users));localStorage.setItem('ahos_current',num);closeAll();checkLogin();}
-else{if(!users[num]||users[num].pass!=pass){alert('Galat password');return;}localStorage.setItem('ahos_current',num);closeAll();checkLogin();}
+if(currentAuth=='signup'){
+if(!name){alert('Name likhen');return;}
+if(users[num]){alert('Is number se account hai, login karen');return;}
+users[num]={name:name,pass:pass};localStorage.setItem('ahos_users',JSON.stringify(users));localStorage.setItem('ahos_current',num);closeAll();checkLogin();alert('Signup ho gaya!');
+}else{
+if(!users[num]||users[num].pass!=pass){alert('Number ya password galat hai');return;}
+localStorage.setItem('ahos_current',num);closeAll();checkLogin();
 }
-function checkLogin(){let curr=localStorage.getItem('ahos_current');if(curr){let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');if(users[curr]){document.getElementById('welcomeText').innerText='Welcome, '+users[curr].name;document.getElementById('loginBtn').style.display='none';document.getElementById('signupBtn').style.display='none';document.getElementById('logoutBtn').style.display='block';document.getElementById('oName').value=users[curr].name;document.getElementById('oWhatsapp').value=curr;}}}
+}
+function handleForgot(){
+let num=document.getElementById('fNumber').value.trim(),pass=document.getElementById('fPass').value.trim();
+if(!num||!pass){alert('Number aur naya password likhen');return;}
+let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');
+if(!users[num]){alert('Is number se koi account nahi mila');return;}
+users[num].pass=pass;localStorage.setItem('ahos_users',JSON.stringify(users));
+alert('Password reset ho gaya! Ab login karen');closeAll();openAuth('login');
+}
+function checkLogin(){
+let curr=localStorage.getItem('ahos_current');
+if(curr){
+let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');
+if(users[curr]){
+document.getElementById('welcomeText').innerText='Welcome, '+users[curr].name;
+document.getElementById('loginBtn').style.display='none';
+document.getElementById('signupBtn').style.display='none';
+document.getElementById('logoutBtn').style.display='block';
+document.getElementById('oName').value=users[curr].name;
+document.getElementById('oWhatsapp').value=curr;
+}
+}
+}
 function logout(){localStorage.removeItem('ahos_current');location.reload();}
-function openOrder(s){let curr=localStorage.getItem('ahos_current');if(!curr){alert('Pehle Login / Signup karen');openAuth('signup');return;}document.getElementById('serviceName').value=s;document.getElementById('serviceTitle').innerText=s;document.getElementById('orderModal').classList.add('active');}
+function openOrder(s){
+let curr=localStorage.getItem('ahos_current');
+if(!curr){alert('Pehle Login / Signup karen');openAuth('signup');return;}
+document.getElementById('serviceName').value=s;
+document.getElementById('serviceTitle').innerText=s;
+document.getElementById('orderModal').classList.add('active');
+}
 function sendWhatsApp(){
 let s=document.getElementById('serviceName').value,n=document.getElementById('oName').value,p=document.getElementById('oProvince').value,d=document.getElementById('oDistrict').value,t=document.getElementById('oTehsil').value,w=document.getElementById('oWhatsapp').value,det=document.getElementById('oDetails').value,f=document.getElementById('fileUpload').files.length;
 if(!n||!p||!d||!t||!w){alert('Name, Province, District, Tehsil, WhatsApp zaroori');return;}
