@@ -1,95 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AHOS - Admin Inbox</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial;background:#f1f5f9;padding:15px}
-.header{background:linear-gradient(135deg,#0a1931,#1e40af);color:#fff;text-align:center;padding:18px;border-radius:12px;margin-bottom:15px}
-.header h2{font-size:20px}
-.header p{font-size:13px;margin-top:5px}
-.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:15px}
-.btn{padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
-.btn-blue{background:#1e40af;color:#fff}
-.btn-red{background:#ef4444;color:#fff}
-.btn-green{background:#25D366;color:#fff;text-decoration:none;display:inline-block}
-.card{background:#fff;padding:14px;margin:12px 0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);border-left:5px solid #1e40af}
-.card b{color:#0a1931}
-.small{font-size:12px;color:#64748b}
-.contact-admin{background:#fff;padding:14px;border-radius:12px;text-align:center;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-</style>
-</head>
-<body>
-
-<div class="header">
-<h2>📩 AHOS - Admin Inbox</h2>
-<p>Website ke Andar ke Sare Orders Yahan Ayenge</p>
-</div>
-
-<div class="contact-admin">
-<b>📞 Contact Us (Admin ka Number)</b><br><br>
-<a class="btn btn-green" href="https://wa.me/923179964898" target="_blank">💬 WhatsApp: 03179964898</a><br><br>
-<small>Email: haideraa040@gmail.com | Channel: WhatsApp Channel</small>
-</div>
-
-<div class="top">
-<a class="btn btn-blue" href="index.html">← Website Par Wapis</a>
-<div style="display:flex;gap:8px">
-<button class="btn btn-blue" onclick="load()">🔄 Refresh</button>
-<button class="btn btn-red" onclick="clearAll()">🗑️ Sare Delete</button>
-</div>
-</div>
-
-<h3 style="margin:10px 0;color:#0a1931">Total Orders: <span id="count">0</span></h3>
-<div id="list"></div>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Haider Online Services</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial;background:#f1f5f9;overflow-x:hidden}
+#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:20px;transition:.8s}
+#intro.hide{transform:translateY(-100%);opacity:0}
+.intro-img{width:230px;height:230px;border-radius:50%;object-fit:cover;border:4px solid #facc15;box-shadow:0 0 45px rgba(250,204,21,.7);margin-bottom:22px;background:#222}
+.typing-box{max-width:640px;text-align:left;font-family:Georgia,serif;font-style:italic;font-size:20px;line-height:1.7;min-height:150px}
+.cursor{display:inline-block;width:12px;height:12px;background:#facc15;border-radius:50%;animation:blink 1s infinite;margin-left:6px}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.skip-btn{margin-top:30px;background:#facc15;color:#000;border:none;padding:12px 28px;border-radius:25px;font-weight:bold;cursor:pointer}
+.header{background:linear-gradient(135deg,#0a1931,#1e40af);color:#fff;text-align:center;padding:28px 15px 20px;position:relative}
+.top-bar{position:absolute;top:12px;right:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.top-btn{background:#fff;color:#0a1931;border:none;padding:7px 14px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:13px}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;max-width:700px;margin:auto}
+.card{background:#fff;border-radius:14px;padding:22px 10px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer}
+.card b{display:block;margin-top:8px;font-size:12.5px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:12px}
+.modal.active{display:flex}
+.modal-box{background:#fff;width:100%;max-width:420px;border-radius:14px;padding:18px;max-height:92vh;overflow-y:auto}
+.modal-box label{font-weight:bold;display:block;margin:10px 0 4px;font-size:13px}
+.modal-box input,.modal-box textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px}
+.btn{width:100%;padding:12px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-weight:bold;margin-top:12px;cursor:pointer}
+.btn-green{background:#16a34a}
+.btn-close{background:#e2e8f0;color:#334155}
+.contact-box{background:#fff;max-width:700px;margin:15px auto;padding:20px;border-radius:14px;text-align:center}
+.contact-btn{display:inline-block;padding:12px 20px;background:#25D366;color:#fff;text-decoration:none;border-radius:25px;font-weight:bold;margin:5px}
+.footer{text-align:center;padding:14px;background:#0a1931;color:#fff;font-size:12px}
+</style></head><body>
+<div id="intro"><img class="intro-img" src="haider.jpg" alt="Haider"><div class="typing-box"><span id="typing"></span><span class="cursor"></span></div><button class="skip-btn" onclick="hideIntro()">Skip → Services Dekho</button></div>
+<div class="header"><div class="top-bar"><button class="top-btn" id="loginBtn" onclick="openAuth('login')">Login</button><button class="top-btn" id="signupBtn" onclick="openAuth('signup')">Signup</button><button class="top-btn" id="adminBtn" style="display:none;background:#facc15" onclick="location.href='admin.html'">Admin Inbox</button><button class="top-btn" id="logoutBtn" style="display:none" onclick="logout()">Logout</button></div>
+<div style="width:130px;height:130px;margin:0 auto;background:#fff;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;color:#0a1931;font-weight:bold;flex-direction:column"><span style="font-size:28px">AHOS</span><span style="font-size:9px">HAIDER ONLINE</span></div>
+<h2 id="welcomeText" style="margin-top:12px">Haider Online Services</h2><div id="welcomeSub" style="margin-top:6px;font-size:13px">📞 03179964898 | ✉️ haideraa040@gmail.com</div></div>
+<div class="services" id="services"></div>
+<div class="contact-box"><h3>📞 Contact Us</h3><a class="contact-btn" href="https://wa.me/923179964898" target="_blank">💬 WhatsApp: 03179964898</a><br><a class="contact-btn" style="background:#1e40af" href="mailto:haideraa040@gmail.com">✉️ Email</a></div>
+<div class="modal" id="authModal"><div class="modal-box"><h3 id="authTitle" style="text-align:center">Signup</h3><div id="nameField"><label>Full Name *</label><input id="aName" placeholder="Apna naam"></div><label>WhatsApp Number *</label><input id="aNumber" placeholder="03XXXXXXXXX"><label>Password *</label><input id="aPass" type="password"><p id="forgotLink" style="display:none;font-size:12px;text-align:right;margin-top:8px"><span onclick="openForgot()" style="color:#1e40af;cursor:pointer;text-decoration:underline;font-weight:bold">Forget Password?</span></p><button class="btn" id="authAction" onclick="handleAuth()">Signup</button><button class="btn btn-close" onclick="closeAll()">Close</button><p id="switchAuth" style="text-align:center;font-size:12px;margin-top:10px"></p></div></div>
+<div class="modal" id="forgotModal"><div class="modal-box"><h3 style="text-align:center">Forget Password</h3><label>Number</label><input id="fNumber"><button class="btn btn-green" onclick="sendOTP()">OTP Bhejo</button><div id="otpSection" style="display:none"><label>OTP</label><input id="fOTP"><label>New Pass</label><input id="fPass" type="password"><button class="btn" onclick="verifyOTP()">Reset</button></div><button class="btn btn-close" onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="orderModal"><div class="modal-box"><h3 id="serviceTitle">Order</h3><label>Service</label><input id="serviceName" readonly style="background:#f1f5f9;font-weight:bold"><label>Apka Naam *</label><input id="oName"><label>WhatsApp *</label><input id="oWhatsapp"><label>Province *</label><input id="oProvince"><label>District *</label><input id="oDistrict"><label>Tehsil *</label><input id="oTehsil"><label>Address *</label><textarea id="oFullAddress"></textarea><label>Details</label><textarea id="oDetails"></textarea><button class="btn btn-green" id="orderBtn" onclick="saveOrder()">✅ Order Bhejo & WhatsApp Karo</button><button class="btn btn-close" onclick="closeAll()">Close</button></div></div>
+<div class="footer">© AHOS - 03179964898</div>
 <script>
-function load(){
-let orders = JSON.parse(localStorage.getItem('ahos_all_orders')||'[]');
-let div = document.getElementById('list');
-let count = document.getElementById('count');
-count.innerText = orders.length;
-if(orders.length==0){
-div.innerHTML='<div class="card" style="text-align:center">Koi Order nahi hai abhi<br><small>Customer jab order karega to yahan ayega, WhatsApp par nahi jayega</small></div>';
-return;
-}
-div.innerHTML='';
-orders.slice().reverse().forEach((o,i)=>{
-let realIndex = orders.length - 1 - i;
-div.innerHTML+=`
-<div class="card">
-<b>🔹 Service:</b> ${o.service}<br>
-<b>👤 Name:</b> ${o.name}<br>
-<b>📱 WhatsApp:</b> <a href="https://wa.me/${o.whatsapp.replace(/[^0-9]/g,'')}" target="_blank" style="color:#25D366;font-weight:bold">${o.whatsapp}</a><br>
-<b>📍 Province:</b> ${o.province} | <b>District:</b> ${o.district} | <b>Tehsil:</b> ${o.tehsil}<br>
-<b>🏠 Address:</b> ${o.address}<br>
-<b>📝 Details:</b> ${o.details||'N/A'}<br>
-<small class="small">📅 ${o.date}</small><br><br>
-<button class="btn btn-red" style="padding:6px 12px;font-size:12px" onclick="deleteOne(${realIndex})">Is Order ko Delete Karo</button>
-</div>`;
-});
-}
-
-function deleteOne(index){
-if(confirm('Ye order delete karna hai?')){
-let orders = JSON.parse(localStorage.getItem('ahos_all_orders')||'[]');
-orders.splice(index,1);
-localStorage.setItem('ahos_all_orders',JSON.stringify(orders));
-load();
-}
-}
-
-function clearAll(){
-if(confirm('Sare Orders Delete karne hain? Ye wapis nahi ayenge!')){
-localStorage.removeItem('ahos_all_orders');
-load();
-}
-}
-
-load();
-</script>
-
-</body>
-</html>
+const ADMIN_NUMBERS=["03179964898","923179964898"];
+const text="Hi, I am Haider — I provide all online services across Pakistan. From Domicile, Driving Licence, Jobs Apply, CV Making to PTA Registration & more. Welcome to Haider Online Services...";
+let i=0;function typeWriter(){if(i<text.length){document.getElementById('typing').innerHTML+=text.charAt(i);i++;setTimeout(typeWriter,28);}else{setTimeout(hideIntro,2500);}}function hideIntro(){document.getElementById('intro').classList.add('hide');setTimeout(()=>{document.getElementById('intro').style.display='none'},800);}window.onload=typeWriter;
+let currentAuth='signup',tempOTP=0,tempResetNumber='';
+let services=[{n:"All Jobs Online Apply",i:"💼"},{n:"Domicile",i:"📜"},{n:"Driving Licence Learner",i:"🚗"},{n:"Transfer Of All Motor Vehicle",i:"🚙"},{n:"All Punjab Schemes Apply",i:"🏛️"},{n:"Admissions",i:"🎓"},{n:"Rawalpindi Board",i:"📚"},{n:"Allama Iqbal Open University",i:"🏫"},{n:"Professional CV",i:"📄"},{n:"PTA Registration",i:"📱"},{n:"Soft Skill Certificate",i:"📜"},{n:"Graphics Designing",i:"🎨"},{n:"Picture Editing",i:"🖼️"},{n:"All Country TikTok Account",i:"🎵"},{n:"UK TikTok Sim",i:"🇬🇧"}];
+let cont=document.getElementById('services');services.forEach(s=>{let d=document.createElement('div');d.className='card';d.innerHTML='<div style="font-size:32px">'+s.i+'</div><b>'+s.n+'</b>';d.onclick=()=>openOrder(s.n);cont.appendChild(d);});
+function openAuth(t){currentAuth=t;document.getElementById('authTitle').innerText=t=='login'?'Login':'Signup';document.getElementById('authAction').innerText=t=='login'?'Login':'Signup';document.getElementById('nameField').style.display=t=='login'?'none':'block';document.getElementById('forgotLink').style.display=t=='login'?'block':'none';document.getElementById('switchAuth').innerHTML=t=='login'? 'No account? <b onclick="openAuth(\'signup\')" style="color:#1e40af;cursor:pointer">Signup</b>':'Have account? <b onclick="openAuth(\'login\')" style="color:#1e40af;cursor:pointer">Login</b>';document.getElementById('authModal').classList.add('active');}
+function openForgot(){closeAll();document.getElementById('forgotModal').classList.add('active');}
+function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));}
+function handleAuth(){let name=document.getElementById('aName').value.trim(),num=document.getElementById('aNumber').value.trim(),pass=document.getElementById('aPass').value.trim();if(!num||!pass){alert('Number & Password zaruri');return;}if(currentAuth=='signup'&&!name){alert('Full Name lazmi hai');return;}let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');if(currentAuth=='signup'){if(users[num]){alert('Account exists, login karo');openAuth('login');return;}users[num]={name:name,pass:pass};localStorage.setItem('ahos_users',JSON.stringify(users));localStorage.setItem('ahos_current',num);alert('Welcome '+name);closeAll();checkLogin();}else{if(!users[num]||users[num].pass!=pass){alert('Wrong password');return;}localStorage.setItem('ahos_current',num);closeAll();checkLogin();}}
+function sendOTP(){let num=document.getElementById('fNumber').value.trim();let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');if(!users[num]){alert('No account');return;}tempOTP=Math.floor(100000+Math.random()*900000);tempResetNumber=num;document.getElementById('otpSection').style.display='block';alert('OTP: '+tempOTP);}
+function verifyOTP(){let otp=document.getElementById('fOTP').value.trim(),pass=document.getElementById('fPass').value.trim();if(otp!=tempOTP){alert('Wrong OTP');return;}let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');users[tempResetNumber].pass=pass;localStorage.setItem('ahos_users',JSON.stringify(users));alert('Reset done');closeAll();openAuth('login');}
+function checkLogin(){let curr=localStorage.getItem('ahos_current');let adminBtn=document.getElementById('adminBtn'),loginBtn=document.getElementById('loginBtn'),signupBtn=document.getElementById('signupBtn'),logoutBtn=document.getElementById('logoutBtn');if(curr){let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');if(users[curr]){let uname=users[curr].name;document.getElementById('welcomeText').innerText='Welcome, '+uname+' 👋';document.getElementById('welcomeSub').innerText='Login: '+curr;loginBtn.style.display='none';signupBtn.style.display='none';logoutBtn.style.display='block';document.getElementById('oName').value=uname;document.getElementById('oWhatsapp').value=curr;let isAdmin=ADMIN_NUMBERS.includes(curr)||curr.includes('3179964898')||uname.toLowerCase().includes('haider');if(isAdmin){adminBtn.style.display='block';}else{adminBtn.style.display='none';}return;}}document.getElementById('welcomeText').innerText='Haider Online Services';document.getElementById('welcomeSub').innerText='📞 03179964898';loginBtn.style.display='block';signupBtn.style.display='block';logoutBtn.style.display='none';adminBtn.style.display='none';}
+function logout(){localStorage.removeItem('ahos_current');location.reload();}
+function openOrder(s){let curr=localStorage.getItem('ahos_current');if(!curr){alert('Pehle Signup/Login karo');openAuth('signup');return;}document.getElementById('serviceName').value=s;document.getElementById('serviceTitle').innerText=s;document.getElementById('orderModal').classList.add('active');}
+function saveOrder(){let s=document.getElementById('serviceName').value,n=document.getElementById('oName').value.trim(),w=document.getElementById('oWhatsapp').value.trim(),p=document.getElementById('oProvince').value.trim(),d=document.getElementById('oDistrict').value.trim(),t=document.getElementById('oTehsil').value.trim(),a=document.getElementById('oFullAddress').value.trim(),de=document.getElementById('oDetails').value.trim();if(!n||!w||!p||!d||!t||!a){alert('Sare * bharo');return;}let order={service:s,name:n,whatsapp:w,province:p,district:d,tehsil:t,address:a,details:de,date:new Date().toLocaleString()};let all=JSON.parse(localStorage.getItem('ahos_all_orders')||'[]');all.push(order);localStorage.setItem('ahos_all_orders',JSON.stringify(all));let msg=`*NEW ORDER*%0A%0A*Service:* ${encodeURIComponent(s)}%0A*Name:* ${encodeURIComponent(n)}%0A*Number:* ${encodeURIComponent(w)}%0A*District:* ${encodeURIComponent(d)}%0A*Tehsil:* ${encodeURIComponent(t)}%0A*Address:* ${encodeURIComponent(a)}`;let waLink=`https://wa.me/923179964898?text=${msg}`;alert('✅ Order save! WhatsApp khul raha hai');closeAll();window.open(waLink,'_blank');}
+checkLogin();
+</script></body></html>
