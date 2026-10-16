@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AHOS - Admin Inbox</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial;background:#f1f5f9;padding:15px}
+.header{background:linear-gradient(135deg,#0a1931,#1e40af);color:#fff;text-align:center;padding:18px;border-radius:12px;margin-bottom:15px}
+.header h2{font-size:20px}
+.header p{font-size:13px;margin-top:5px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:15px}
+.btn{padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.btn-blue{background:#1e40af;color:#fff}
+.btn-red{background:#ef4444;color:#fff}
+.btn-green{background:#25D366;color:#fff;text-decoration:none;display:inline-block}
+.card{background:#fff;padding:14px;margin:12px 0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);border-left:5px solid #1e40af}
+.card b{color:#0a1931}
+.small{font-size:12px;color:#64748b}
+.contact-admin{background:#fff;padding:14px;border-radius:12px;text-align:center;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h2>📩 AHOS - Admin Inbox</h2>
+<p>Website ke Andar ke Sare Orders Yahan Ayenge</p>
+</div>
+
+<div class="contact-admin">
+<b>📞 Contact Us (Admin ka Number)</b><br><br>
+<a class="btn btn-green" href="https://wa.me/923179964898" target="_blank">💬 WhatsApp: 03179964898</a><br><br>
+<small>Email: haideraa040@gmail.com | Channel: WhatsApp Channel</small>
+</div>
+
+<div class="top">
+<a class="btn btn-blue" href="index.html">← Website Par Wapis</a>
+<div style="display:flex;gap:8px">
+<button class="btn btn-blue" onclick="load()">🔄 Refresh</button>
+<button class="btn btn-red" onclick="clearAll()">🗑️ Sare Delete</button>
+</div>
+</div>
+
+<h3 style="margin:10px 0;color:#0a1931">Total Orders: <span id="count">0</span></h3>
+<div id="list"></div>
+
+<script>
+function load(){
+let orders = JSON.parse(localStorage.getItem('ahos_all_orders')||'[]');
+let div = document.getElementById('list');
+let count = document.getElementById('count');
+count.innerText = orders.length;
+if(orders.length==0){
+div.innerHTML='<div class="card" style="text-align:center">Koi Order nahi hai abhi<br><small>Customer jab order karega to yahan ayega, WhatsApp par nahi jayega</small></div>';
+return;
+}
+div.innerHTML='';
+orders.slice().reverse().forEach((o,i)=>{
+let realIndex = orders.length - 1 - i;
+div.innerHTML+=`
+<div class="card">
+<b>🔹 Service:</b> ${o.service}<br>
+<b>👤 Name:</b> ${o.name}<br>
+<b>📱 WhatsApp:</b> <a href="https://wa.me/${o.whatsapp.replace(/[^0-9]/g,'')}" target="_blank" style="color:#25D366;font-weight:bold">${o.whatsapp}</a><br>
+<b>📍 Province:</b> ${o.province} | <b>District:</b> ${o.district} | <b>Tehsil:</b> ${o.tehsil}<br>
+<b>🏠 Address:</b> ${o.address}<br>
+<b>📝 Details:</b> ${o.details||'N/A'}<br>
+<small class="small">📅 ${o.date}</small><br><br>
+<button class="btn btn-red" style="padding:6px 12px;font-size:12px" onclick="deleteOne(${realIndex})">Is Order ko Delete Karo</button>
+</div>`;
+});
+}
+
+function deleteOne(index){
+if(confirm('Ye order delete karna hai?')){
+let orders = JSON.parse(localStorage.getItem('ahos_all_orders')||'[]');
+orders.splice(index,1);
+localStorage.setItem('ahos_all_orders',JSON.stringify(orders));
+load();
+}
+}
+
+function clearAll(){
+if(confirm('Sare Orders Delete karne hain? Ye wapis nahi ayenge!')){
+localStorage.removeItem('ahos_all_orders');
+load();
+}
+}
+
+load();
+</script>
+
+</body>
+</html>
