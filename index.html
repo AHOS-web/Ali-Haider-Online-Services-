@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ali Haider Online Services - AHOS</title>
+<title>AHOS - Ali Haider Online Services</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f5f7fb}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial;background:#f0f2f5}
 .header{background:linear-gradient(135deg,#0a1931,#185adb);color:#fff;text-align:center;padding:25px 15px;position:relative}
-.profile{width:120px;height:120px;border-radius:50%;border:4px solid #fff;object-fit:cover;background:#fff}
-.top-bar{position:absolute;top:10px;right:10px;display:flex;gap:6px}
-.top-btn{background:#fff;color:#0a1931;border:none;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;cursor:pointer}
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:20px;max-width:1100px;margin:auto}
-.card{background:#fff;border-radius:15px;padding:18px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer;transition:0.2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
-.card h3{font-size:13px;color:#0a1931;margin-top:6px}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:999;align-items:center;justify-content:center;padding:12px}
+.profile{width:130px;height:130px;border-radius:50%;border:4px solid #fff;object-fit:cover;background:#ccc}
+.top-bar{position:absolute;top:12px;right:10px;display:flex;gap:6px}
+.top-btn{background:#fff;color:#0a1931;border:none;padding:7px 14px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:13px}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;max-width:600px;margin:auto}
+.card{background:#fff;border-radius:12px;padding:20px 10px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1);cursor:pointer}
+.card b{display:block;margin-top:8px;color:#0a1931;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center;padding:12px}
 .modal.active{display:flex}
-.modal-box{background:#fff;width:100%;max-width:430px;border-radius:15px;padding:20px;max-height:92vh;overflow-y:auto}
-.modal-box h2{color:#0a1931;text-align:center;margin-bottom:10px}
-.modal-box label{font-weight:bold;display:block;margin:10px 0 4px;font-size:13px}
-.modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px}
-.btn{width:100%;padding:12px;background:#25D366;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:bold;margin-top:12px;cursor:pointer}
-.btn-blue{background:#185adb}
-.btn-close{background:#eee;color:#333}
-.upload-box{border:2px dashed #185adb;padding:12px;border-radius:10px;text-align:center;background:#f0f4ff}
-#preview{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-#preview img{width:55px;height:55px;object-fit:cover;border-radius:6px;border:1px solid #ddd}
-.footer{text-align:center;padding:15px;background:#0a1931;color:#fff;margin-top:20px;font-size:13px}
-.footer a{color:#25D366;text-decoration:none}
+.modal-box{background:#fff;width:100%;max-width:400px;border-radius:12px;padding:18px;max-height:90vh;overflow-y:auto}
+.modal-box label{font-weight:bold;display:block;margin:9px 0 3px;font-size:13px}
+.modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:7px}
+.btn{width:100%;padding:11px;background:#25D366;color:#fff;border:none;border-radius:7px;font-weight:bold;margin-top:10px;cursor:pointer}
+.btn-blue{background:#185adb}.btn-close{background:#eee;color:#333}
+.upload-box{border:2px dashed #185adb;padding:10px;border-radius:8px;background:#f0f4ff;text-align:center}
+.footer{text-align:center;padding:12px;background:#0a1931;color:#fff;margin-top:15px;font-size:12px}
 </style>
 </head>
 <body>
@@ -37,64 +31,72 @@
 <button class="top-btn" id="signupBtn" onclick="openAuth('signup')">Signup</button>
 <button class="top-btn" id="logoutBtn" style="display:none" onclick="logout()">Logout</button>
 </div>
-<img src="Photo.jpg" class="profile" onerror="this.src='0fa042a42a898a9d248643cc1560def7_0(2).jpg'">
-<h1 id="welcomeText" style="margin-top:10px;font-size:20px">Ali Haider Online Services</h1>
+<img class="profile" src="Photo.jpg" onerror="this.onerror=null; this.src='photo.jpg';">
+<h2 id="welcomeText" style="margin-top:10px">Ali Haider Online Services</h2>
 <p style="font-size:12px">03179964898 | haideraa040@gmail.com</p>
-<p style="font-size:12px"><a href="https://whatsapp.com/channel/0029Vb7FOtgEgGfOnnwGED0r" style="color:#25D366">📢 WhatsApp Channel Join</a></p>
+<a href="https://whatsapp.com/channel/0029Vb7FOtgEgGfOnnwGED0r" style="color:#25D366;font-size:12px">📢 WhatsApp Channel Join</a>
 </div>
 
 <div class="services" id="services"></div>
 
-<!-- Auth Modal -->
 <div class="modal" id="authModal">
 <div class="modal-box">
-<h2 id="authTitle">Signup</h2>
-<label>Full Name</label><input id="aName" placeholder="Apna naam">
+<h3 id="authTitle" style="text-align:center;color:#0a1931">Signup</h3>
+<label>Full Name</label><input id="aName">
 <label>WhatsApp Number</label><input id="aNumber" placeholder="03xx-xxxxxxx">
-<label>Password</label><input id="aPass" type="password" placeholder="Password">
+<label>Password</label><input id="aPass" type="password">
 <button class="btn btn-blue" id="authAction" onclick="handleAuth()">Signup</button>
 <button class="btn btn-close" onclick="closeAll()">Close</button>
-<p style="font-size:12px;text-align:center;margin-top:8px" id="switchAuth"></p>
+<p style="text-align:center;font-size:12px;margin-top:8px" id="switchAuth"></p>
 </div>
 </div>
 
-<!-- Service Order Modal with Province District Tehsil -->
 <div class="modal" id="orderModal">
 <div class="modal-box">
-<h2 id="serviceTitle">Order Form</h2>
-
-<label>Service</label><input id="serviceName" readonly style="background:#f0f0f0">
-
-<label>Full Name *</label><input id="oName" placeholder="Apka pura naam">
-
+<h3 id="serviceTitle" style="text-align:center;color:#0a1931">Order Form</h3>
+<label>Service</label><input id="serviceName" readonly style="background:#eee">
+<label>Name *</label><input id="oName">
 <label>Province *</label>
-<select id="oProvince">
-<option value="">Select Province</option>
-<option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad</option><option>Gilgit Baltistan</option><option>Azad Kashmir</option>
-</select>
-
-<label>District *</label><input id="oDistrict" placeholder="Jaise: Peshawar, Lahore">
-
-<label>Tehsil *</label><input id="oTehsil" placeholder="Jaise: City Tehsil">
-
-<label>WhatsApp Number *</label><input id="oWhatsapp" placeholder="03xx-xxxxxxx">
-
-<label>More Details</label><textarea id="oDetails" rows="2" placeholder="Size, quantity, koi khas baat..."></textarea>
-
-<label>Upload Documents / Pictures *</label>
-<div class="upload-box">
-<input type="file" id="fileUpload" multiple accept="image/*,.pdf,.doc,.docx" onchange="previewImages()">
-<p style="font-size:11px;margin-top:4px">CNIC, Photo, Design, PDF kuch bhi</p>
-<div id="preview"></div>
-</div>
-
-<button class="btn" onclick="sendWhatsApp()">📲 WhatsApp Par Order Bhejen</button>
-<button class="btn btn-close" onclick="closeAll()">Band Karen</button>
+<select id="oProvince"><option value="">Select</option><option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad</option><option>Gilgit Baltistan</option><option>Azad Kashmir</option></select>
+<label>District *</label><input id="oDistrict" placeholder="Peshawar, Lahore...">
+<label>Tehsil *</label><input id="oTehsil" placeholder="Tehsil name">
+<label>WhatsApp *</label><input id="oWhatsapp" placeholder="03xx-xxxxxxx">
+<label>Details</label><textarea id="oDetails" rows="2"></textarea>
+<label>Upload Documents / Pictures</label>
+<div class="upload-box"><input type="file" id="fileUpload" multiple accept="image/*,.pdf"><p style="font-size:10px">JPG, PNG, PDF</p></div>
+<button class="btn" onclick="sendWhatsApp()">📲 WhatsApp Par Bhejen</button>
+<button class="btn btn-close" onclick="closeAll()">Close</button>
 </div>
 </div>
 
-<div class="footer">© 2026 AHOS - All Pakistan Service | All old options are same</div>
+<div class="footer">© 2026 AHOS - All Pakistan Service</div>
 
 <script>
 let currentAuth='signup';
-const servicesList=["📄 CV / Resume Making","🎨 Graphic Designing","🖨️ Photo Editing","👕 T-Sh
+let list=["CV / Resume Making","Graphic Designing","Photo Editing","T-Shirt Design","Mug Design","Certificate Design","Invitation Cards","Poster Design","ID Card Design","Assignment Typing","Application Writing","Document Formatting","Background Removal","Thumbnail Design","Presentation","Logo Design","More Services"];
+let cont=document.getElementById('services');
+list.forEach(function(s){
+let d=document.createElement('div');d.className='card';d.innerHTML='<div style="font-size:30px">📄</div><b>'+s+'</b>';d.onclick=function(){openOrder(s);};cont.appendChild(d);
+});
+function openAuth(t){currentAuth=t;document.getElementById('authTitle').innerText=t=='login'?'Login':'Signup';document.getElementById('authAction').innerText=t=='login'?'Login':'Signup';document.getElementById('aName').style.display=t=='login'?'none':'block';document.getElementById('aName').previousElementSibling.style.display=t=='login'?'none':'block';document.getElementById('switchAuth').innerHTML=t=='login'? 'No account? <b onclick="openAuth(\'signup\')" style="color:#185adb">Signup</b>' : 'Have account? <b onclick="openAuth(\'login\')" style="color:#185adb">Login</b>';document.getElementById('authModal').classList.add('active');}
+function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));}
+function handleAuth(){
+let name=document.getElementById('aName').value.trim(),num=document.getElementById('aNumber').value.trim(),pass=document.getElementById('aPass').value.trim();
+if(!num||!pass){alert('Number & Password likhen');return;}
+let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');
+if(currentAuth=='signup'){if(!name){alert('Name likhen');return;}if(users[num]){alert('Account hai, login karen');return;}users[num]={name:name,pass:pass};localStorage.setItem('ahos_users',JSON.stringify(users));localStorage.setItem('ahos_current',num);closeAll();checkLogin();}
+else{if(!users[num]||users[num].pass!=pass){alert('Galat password');return;}localStorage.setItem('ahos_current',num);closeAll();checkLogin();}
+}
+function checkLogin(){let curr=localStorage.getItem('ahos_current');if(curr){let users=JSON.parse(localStorage.getItem('ahos_users')||'{}');if(users[curr]){document.getElementById('welcomeText').innerText='Welcome, '+users[curr].name;document.getElementById('loginBtn').style.display='none';document.getElementById('signupBtn').style.display='none';document.getElementById('logoutBtn').style.display='block';document.getElementById('oName').value=users[curr].name;document.getElementById('oWhatsapp').value=curr;}}}
+function logout(){localStorage.removeItem('ahos_current');location.reload();}
+function openOrder(s){let curr=localStorage.getItem('ahos_current');if(!curr){alert('Pehle Login / Signup karen');openAuth('signup');return;}document.getElementById('serviceName').value=s;document.getElementById('serviceTitle').innerText=s;document.getElementById('orderModal').classList.add('active');}
+function sendWhatsApp(){
+let s=document.getElementById('serviceName').value,n=document.getElementById('oName').value,p=document.getElementById('oProvince').value,d=document.getElementById('oDistrict').value,t=document.getElementById('oTehsil').value,w=document.getElementById('oWhatsapp').value,det=document.getElementById('oDetails').value,f=document.getElementById('fileUpload').files.length;
+if(!n||!p||!d||!t||!w){alert('Name, Province, District, Tehsil, WhatsApp zaroori');return;}
+let msg='*NEW ORDER - AHOS*%0A*Service:* '+s+'%0A*Name:* '+n+'%0A*Province:* '+p+'%0A*District:* '+d+'%0A*Tehsil:* '+t+'%0A*WhatsApp:* '+w+'%0A*Details:* '+det+'%0A*Files:* '+f+' file(s)';
+window.open('https://wa.me/923179964898?text='+msg,'_blank');closeAll();
+}
+checkLogin();
+</script>
+</body>
+</html>
