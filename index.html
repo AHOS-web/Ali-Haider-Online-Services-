@@ -1,4 +1,5 @@
-<!DOCTYPE html><html><head> <link rel="manifest" href="/manifest.json"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#38bdf8"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Haider Online Services</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial;background:#f1f5f9;overflow-x:hidden}
+<!DOCTYPE html><html><head> <link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png"><link rel="manifest" href="/manifest.json"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#38bdf8"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Haider Online Services</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial;background:#f1f5f9;overflow-x:hidden}
 #intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:20px;transition:0.8s}
 #intro.hide{transform:translateY(-100%);opacity:0}
 .intro-img{width:210px;height:210px;border-radius:50%;object-fit:cover;border:4px solid #facc15;margin-bottom:20px;box-shadow:0 0 40px rgba(250,204,21,0.6)}
@@ -61,4 +62,5 @@ function openOrder(s){let curr=localStorage.getItem('ahos_current');if(!curr){al
 async function saveOrderToFirebase(){let s=document.getElementById('serviceName').value,n=document.getElementById('oName').value,w=document.getElementById('oWhatsapp').value,p=document.getElementById('oProvince').value,d=document.getElementById('oDistrict').value,t=document.getElementById('oTehsil').value,addr=document.getElementById('oFullAddress').value,det=document.getElementById('oDetails').value;if(!n||!w||!p||!d||!t||!addr){alert('Sare * wale box bharo');return;}document.getElementById('orderBtn').innerText='⏳ Bheja ja raha hai...';document.getElementById('orderBtn').disabled=true;try{await addDoc(collection(db, "orders"), {service:s,name:n,whatsapp:w,province:p,district:d,tehsil:t,address:addr,details:det,date:new Date().toLocaleString(),timestamp:serverTimestamp()});alert('✅ Order Save ho gaya!');closeAll();}catch(e){alert('Error: '+e.message);}document.getElementById('orderBtn').innerText='✅ Order Bhejo';document.getElementById('orderBtn').disabled=false;}
 checkLogin();
 </script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}</script>
 </body></html>
